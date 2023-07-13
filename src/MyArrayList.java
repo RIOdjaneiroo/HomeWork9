@@ -12,7 +12,7 @@ public class MyArrayList <Tet> {
         size++;
     }
     private void strech() {
-        int strechVal = values.length +1;                              // Обчислення нової довжини
+        int strechVal = values.length *2;                              // Обчислення нової довжини
         Tet[] strechVals = (Tet[]) new Object[strechVal];               // Створення нового масиву об'єктів типу E
         System.arraycopy(values, 0, strechVals, 0, size); // Копіювання вмісту з поточного масиву в новий масив
         values = strechVals;  // Заміна посилання на поточний масив новим масивом з більшою ємністю

@@ -2,10 +2,10 @@
 public class Main {
     public static void main(String[] args) {
         //System.out.printf("Hello and welcome!");
-        myArrayListEx();
+        myArrayListTest();
 
     }
-    public static void myArrayListEx(){
+    public static void myArrayListTest(){
         MyArrayList myArrayList = new MyArrayList<>();
         myArrayList.add("qaz");
         myArrayList.add("wsx");
