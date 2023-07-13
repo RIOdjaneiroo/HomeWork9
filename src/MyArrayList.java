@@ -1,9 +1,9 @@
 public class MyArrayList <Tet> {
     private Tet[] values;
     private int size;
-    //private final int DEFAULT = 1;
+    private final int DEFAULT = 10;
     public MyArrayList(){           // Конструктор для додавання обєкту
-        values = (Tet[]) new Object[1];  //приводимо обєкт до типу tet
+        values = (Tet[]) new Object[DEFAULT];  //приводимо обєкт до типу tet
         size = 0;
     }
     public void add(Tet obj){
@@ -18,26 +18,26 @@ public class MyArrayList <Tet> {
         values = strechVals;  // Заміна посилання на поточний масив новим масивом з більшою ємністю
     }
     public void remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+        IndOutOfBoundExn(index);
         System.arraycopy(values, index + 1, values, index, size - index - 1);
         values[--size] = null;
     }
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            values[i] = null;
-        }
+        values = (Tet[]) new Object[DEFAULT]; // Створення нового масиву об'єктів типу E
         size = 0;
     }
     public int size() {
         return size;
     }
     public Tet get(int index) {
+        IndOutOfBoundExn(index);
+        return values[index];
+    }
+    public void IndOutOfBoundExn(int index){
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-        return values[index];
+
     }
 
 
