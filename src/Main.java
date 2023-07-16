@@ -6,8 +6,31 @@ public class Main {
         //myQueueTest();
         //myLinkedListTest();
         //myArrayListTest();
-        myStackTest();
+        //myStackTest();
+        myHashMap();
 
+    }
+    public static void myHashMap(){
+        MyHashMap<Integer,String> myHashMap = new MyHashMap();
+        myHashMap.put(1,"Моя");
+        myHashMap.put(2,"бабушка");
+        myHashMap.put(3,"курит");
+        myHashMap.put(4,"трубку");
+        myHashMap.put(5,"миру");
+        myHashMap.put(6,"не курить");
+        System.out.println("myHashMap.size() = " + myHashMap.size());
+        for (int i = 0; i<= myHashMap.size(); i++){
+            System.out.println(myHashMap.get(i));    // неправильний спосіб виведення мапи
+            // але так можна протестувати введення невірного ключа   ноль
+        }
+        myHashMap.remove(6);
+        myHashMap.remove(5);
+        System.out.println("myHashMap.get(5) = " + myHashMap.get(4));
+        myHashMap.remove(4);
+        System.out.println("myHashMap.size() = " + myHashMap.size());
+        System.out.println("myHashMap.get(2) = " + myHashMap.get(2));
+        myHashMap.clear();
+        System.out.println("myHashMap.size() = " + myHashMap.size());
     }
     public static void myStackTest(){
         MyStack myStack = new MyStack();
