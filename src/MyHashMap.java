@@ -3,16 +3,33 @@ public class MyHashMap<K, V> {
     private int size;                     //це буде розмір колекції
 
     public MyHashMap() {
-        buckets = new NodeOne[16]; // Початковий розмір бакетів
+        buckets = new NodeOne[16];          // Початковий розмір бакетів
         size = 0;
     }
     private int getIndHeshBuket(K key) {           //головна функція розрахунку хеша ключа
         return key.hashCode() % buckets.length;   //визначаэмо залишок від ділення  хеша ключа на уількість букетів
     }
-
+    private void resizeBuckets() {                      // метод збільшення масиву в 2 рази
+        int strech = buckets.length * 2;           // ініціалізуємо змінну що буде в 2 рази більша за розмір коробки
+        NodeOne<K, V>[] newBuckets = new NodeOne[strech]; // створюємо нову коробку для нод
+        for (NodeOne<K, V> nodeO : buckets) {                   // цикл по старому масиву нод
+            while (nodeO != null) {                             // цикл якщо нода не  порожня
+                NodeOne<K, V> nextNode = nodeO.getNext();        //дістаємо в змінну посилання на наступний елемент у зв'язаному списку
+                int newBucketIndex = nodeO.getKey().hashCode() % strech; //тут ми знову визначаємо індекс в новому масиві
+                nodeO.setNext(newBuckets[newBucketIndex]);      //сетимо посилання на наступний елемент в новий елемент масиву
+                newBuckets[newBucketIndex] = nodeO;              // встановлюємо новий початок ланцюжка у зв'язаному списку
+                nodeO = nextNode;                               // стандартний перехів на новий елемент перебираємого масиву
+            }
+        }
+        buckets = newBuckets;      // оновлюємо наш букет новоствореним масивом букетів
+    }
     public void put(K key, V value) {                          // посуті адд але в середину букету
         NodeOne<K, V> newNode = new NodeOne<>(key, value);     // створюємо нову ноду
         int bucketIndex = getIndHeshBuket(key);                 //визначаєм індекс бакета, до якого потрібно додати пару ключ-значення
+        if (size >= buckets.length) {                            // якщо довжина коробки >= довжині букету
+            resizeBuckets();                                      // робимо розширення
+            bucketIndex = getIndHeshBuket(key);                   // Оновлюємо bucketIndex після зміни розміру buckets
+        }
 
         if (buckets[bucketIndex] == null) {                    // дивимся якщо індекс 0 , коробочка пуста
             buckets[bucketIndex] = newNode;                    // присвоюємо нову ноду букету з індексом
@@ -36,6 +53,7 @@ public class MyHashMap<K, V> {
             }
         }
     }
+
 
     public void remove(K key) {                                // функція видалення
         int bucketIndex = getIndHeshBuket(key);                //визначаєм індекс бакета, для видалення

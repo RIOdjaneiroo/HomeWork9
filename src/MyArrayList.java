@@ -1,6 +1,6 @@
 public class MyArrayList <Tet> {
     private Tet[] values;
-    private int size;
+    private int size;        // розмір коробки (масиву)
     private final int DEFAULT = 10;
     public MyArrayList(){           // Конструктор для додавання обєкту
         values = (Tet[]) new Object[DEFAULT];  //приводимо обєкт до типу tet
@@ -17,9 +17,9 @@ public class MyArrayList <Tet> {
         System.arraycopy(values, 0, strechVals, 0, size); // Копіювання вмісту з поточного масиву в новий масив
         values = strechVals;  // Заміна посилання на поточний масив новим масивом з більшою ємністю
     }
-    public void remove(int index) {
-        IndOutOfBoundExn(index);
-        System.arraycopy(values, index + 1, values, index, size - index - 1);
+    public void remove(int index) {                        // метод для видалення
+        indOutOfBoundExn(index);                           // перевіряємо чи вхожий індекс
+        System.arraycopy(values, index + 1, values, index, size - index - 1); // виводимо в консоль
         values[--size] = null;
     }
     public void clear() {
@@ -30,16 +30,13 @@ public class MyArrayList <Tet> {
         return size;
     }
     public Tet get(int index) {
-        IndOutOfBoundExn(index);
+        indOutOfBoundExn(index);
         return values[index];
     }
-    public void IndOutOfBoundExn(int index){
+    public void indOutOfBoundExn(int index){    // метод входження індекса в розмір
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-
     }
-
-
 }
 
